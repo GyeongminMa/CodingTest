@@ -2,6 +2,7 @@ package array;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 
 public class ArrayController {
     /**
@@ -36,5 +37,34 @@ public class ArrayController {
         Arrays.sort(result, Collections.reverseOrder()); //내림차순 정렬
         //int형 배열로 변경, 반환
         return Arrays.stream(result).mapToInt(Integer::intValue).toArray();
+    }
+
+    /**
+     * 문제 3. 두 개 뽑아서 더하기
+     * 제약조건 : 정수 배열의 길이는 2이상 100 이하입니다. 정수 배열의 각 데이터 값은 0 이상 100이하
+     * 문제  : 정수 배열 numbers가 주어집니다. numbers에서 서로 다른 인덱스에 이쓴 2개의 수를 뽑아 더해 만들 수 있는
+     *         몯느 수를 배열에 오름차순으로 담아 반환하는 solution()함수를 완성하세요
+     * 입출력의 예
+     * 입력 [2,1,3,4,1] -> 출력 [2,3,4,5,6,7]
+     * 입력 [5,0,2,7] -> 출력 [2,5,7,9,12]
+     */
+    private static int[] solution3(int[] numbers){
+        HashSet<Integer> set = new HashSet<>(); //중복값 제거를 위한 해시셋 생성
+
+        //1.두 수를 선택하는 모든 경우의 수
+        for(int i = 0; i < numbers.length -1; i++){
+            for(int j = 0; j <numbers.length; j++){
+                //2.두 수 더한 결과를 해시셋에 저장
+                set.add(numbers[i]+numbers[j]);
+            }
+        }
+        //3.해시셋의 값을 오름차순으로 정렬 , int[] 형태의 배열로 반환
+        return set.stream().sorted().mapToInt(Integer::intValue).toArray();
+
+
+        /*set? 객체를 중복해서 저장할 수 없음, 자동으로 중복 제거, 하나의 null만 저장 가능
+        Hashset? Set 인터페이스에서 지원하는 구현 클래스 set의 성질 그대로 상속
+        */
+
     }
 }
